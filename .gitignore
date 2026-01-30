@@ -1,8 +1,5 @@
 # Java
 backend/target/
-backend/.mvn/
-backend/mvnw
-backend/mvnw.cmd
 
 # Node
 frontend/node_modules/
