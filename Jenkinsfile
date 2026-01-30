@@ -80,7 +80,7 @@ pipeline {
                     sh '''
                         echo "Waiting for backend to be healthy..."
                         for i in $(seq 1 30); do
-                            if curl -f http://localhost:8080/actuator/health > /dev/null 2>&1; then
+                            if curl -f http://localhost:8081/actuator/health > /dev/null 2>&1; then
                                 echo "Backend is healthy!"
                                 break
                             fi
