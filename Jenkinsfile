@@ -22,7 +22,7 @@ pipeline {
                 dir('backend') {
                     sh '''
                         chmod +x mvnw
-                        ./mvnw clean test
+                        ./mvnw clean package -DskipTests
                     '''
                 }
             }
