@@ -113,8 +113,8 @@ pipeline {
             ✅ DEPLOYMENT SUCCESSFUL - Release 1.0
             ═══════════════════════════════════════════════════
             📱 Frontend:    http://localhost:3000
-            🔧 Backend:     http://localhost:8080/api/todos
-            💓 Health:      http://localhost:8080/actuator/health
+            🔧 Backend:     http://localhost:8081/api/todos
+            💓 Health:      http://localhost:8081/actuator/health
             📊 Prometheus:  http://localhost:9090
             📈 Grafana:     http://localhost:3001 (admin/admin)
             ═══════════════════════════════════════════════════
