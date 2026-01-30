@@ -16,22 +16,18 @@ pipeline {
             }
         }
         
-        stage('Build & Test Backend') {
+        stage('Build Backend') {
             steps {
-                echo 'Building and testing Spring Boot backend...'
-                dir('backend') {
-                    sh '''
-                        chmod +x mvnw
-                        ./mvnw clean package -DskipTests
-                    '''
-                }
-            }
-            post {
-                always {
-                    junit 'backend/target/surefire-reports/*.xml'
+                echo 'Building Spring Boot backend (tests skipped)...'
+                    dir('backend') {
+                        sh '''
+                            chmod +x mvnw
+                            ./mvnw clean package -DskipTests
+                        '''
                 }
             }
         }
+
         
         stage('Build & Test Frontend') {
             steps {
