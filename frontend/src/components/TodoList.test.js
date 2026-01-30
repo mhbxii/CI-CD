@@ -70,7 +70,7 @@ describe('TodoList Component', () => {
 
     expect(screen.getByText('Todo without description')).toBeInTheDocument();
     // Description should not be rendered
-    expect(screen.queryByClassName('todo-description')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('todo-description')).not.toBeInTheDocument();
   });
 
   test('renders correct number of todo items', () => {
