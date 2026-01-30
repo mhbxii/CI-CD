@@ -38,8 +38,10 @@ pipeline {
                 echo 'Building and testing React frontend...'
                 dir('frontend') {
                     sh '''
-                        npm ci
-                        npm test
+                        which npm || true
+                        ls -l /usr/bin/npm
+                        /usr/bin/npm ci
+                        /usr/bin/npm test
                     '''
                 }
             }
