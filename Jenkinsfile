@@ -2,6 +2,7 @@ pipeline {
     agent any
     
     environment {
+        PATH = "/usr/bin:/bin:/usr/local/bin"
         // Docker images
         BACKEND_IMAGE = 'todo-backend:latest'
         FRONTEND_IMAGE = 'todo-frontend:latest'
@@ -82,7 +83,7 @@ pipeline {
                     // Wait for backend to be healthy
                     sh '''
                         echo "Waiting for backend to be healthy..."
-                        for i in {1..30}; do
+                        for i in $(seq 1 30); do
                             if curl -f http://localhost:8080/actuator/health > /dev/null 2>&1; then
                                 echo "Backend is healthy!"
                                 break
@@ -95,7 +96,7 @@ pipeline {
                     // Check frontend
                     sh '''
                         echo "Checking frontend..."
-                        for i in {1..10}; do
+                        for i in $(seq 1 10); do
                             if curl -f http://localhost:3000 > /dev/null 2>&1; then
                                 echo "Frontend is accessible!"
                                 break
