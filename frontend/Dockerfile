@@ -2,6 +2,10 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 
+#env var cause .env file wouldnt work
+ARG REACT_APP_API_URL=/api
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm i

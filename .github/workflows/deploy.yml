@@ -1,0 +1,33 @@
+name: Build and Deploy to Minikube
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Login to DockerHub
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u mhbx12 --password-stdin
+    
+    - name: Build and push backend
+      run: |
+        docker build -t mhbx12/todo-backend:${{ github.sha }} ./backend
+        docker push mhbx12/todo-backend:${{ github.sha }}
+    
+    - name: Build and push frontend
+      run: |
+        docker build -t mhbx12/todo-frontend:${{ github.sha }} ./frontend
+        docker push mhbx12/todo-frontend:${{ github.sha }}
+    
+    - name: Deploy to Minikube
+      run: |
+        kubectl set image deployment/backend backend=mhbx12/todo-backend:${{ github.sha }}
+        kubectl set image deployment/frontend frontend=mhbx12/todo-frontend:${{ github.sha }}
+        kubectl rollout status deployment/backend
+        kubectl rollout status deployment/frontend

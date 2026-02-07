@@ -1,3 +1,6 @@
+#minikube
+minikube/
+
 # Java
 backend/target/
 
