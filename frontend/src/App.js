@@ -40,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <h1>📝 Todo App - Release 1.0</h1>
+        <h1>📝 Todo App - Release 1.1</h1>
         <p>Create and Read functionality</p>
       </header>
 
