@@ -28,8 +28,8 @@ jobs:
     - name: Deploy to Minikube
       run: |
         # Update image tags in YAML
-        sed -i "s|image: mhbx12/todo-backend:.*|image: mhbx12/todo-backend:${{ github.sha }}|" k8s/backend-deployment.yaml
-        sed -i "s|image: mhbx12/todo-frontend:.*|image: mhbx12/todo-frontend:${{ github.sha }}|" k8s/frontend-deployment.yaml
+        sed -i "s|image: mhbx12/todo-backend:.*|image: mhbx12/todo-backend:${{ github.sha }}|" minikube/backend-deployment.yaml
+        sed -i "s|image: mhbx12/todo-frontend:.*|image: mhbx12/todo-frontend:${{ github.sha }}|" minikube/frontend-deployment.yaml
         
         # Apply
         kubectl apply -f minikube/backend-deployment.yaml
