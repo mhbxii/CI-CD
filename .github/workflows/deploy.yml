@@ -32,8 +32,8 @@ jobs:
         sed -i "s|image: mhbx12/todo-frontend:.*|image: mhbx12/todo-frontend:${{ github.sha }}|" k8s/frontend-deployment.yaml
         
         # Apply
-        kubectl apply -f k8s/backend-deployment.yaml
-        kubectl apply -f k8s/frontend-deployment.yaml
+        kubectl apply -f minikube/backend-deployment.yaml
+        kubectl apply -f minikube/frontend-deployment.yaml
         
         kubectl rollout status deployment/backend
         kubectl rollout status deployment/frontend
