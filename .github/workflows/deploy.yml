@@ -31,3 +31,10 @@ jobs:
         kubectl set image deployment/frontend frontend=mhbx12/todo-frontend:${{ github.sha }}
         kubectl rollout status deployment/backend
         kubectl rollout status deployment/frontend
+    
+    - name: Deploy MySQL StatefulSet
+      run: |
+        kubectl apply -f minikube/mysql-configmap.yaml
+        kubectl apply -f minikube/mysql-headless-service.yaml
+        kubectl apply -f minikube/mysql-statefulset.yaml
+        kubectl apply -f minikube/mysql-service.yaml

@@ -12,6 +12,10 @@ spec:
       labels:
         app: backend
     spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup mysql.database.svc.cluster.local; do echo waiting for mysql; sleep 2; done']
       containers:
       - name: backend
         image: mhbx12/todo-backend:latest
@@ -20,7 +24,7 @@ spec:
         - containerPort: 8080
         env:
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:mysql://mysql:3306/tododb"
+          value: "jdbc:mysql://mysql.database.svc.cluster.local:3306/tododb"
         - name: SPRING_DATASOURCE_USERNAME
           value: "root"
         - name: SPRING_DATASOURCE_PASSWORD
