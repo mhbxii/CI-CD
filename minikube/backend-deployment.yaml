@@ -33,7 +33,7 @@ spec:
           httpGet:
             path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 30    # Wait 30s before first check (Spring Boot startup time)
+          initialDelaySeconds: 60    # Wait 60s before first check (Spring Boot startup time)
           periodSeconds: 10          # Check every 10s
           failureThreshold: 3        # Fail 3 times before removing from LB
 
@@ -41,7 +41,7 @@ spec:
           httpGet:
             path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 60    # Wait longer before liveness (give app time to fully start)
+          initialDelaySeconds: 120    # Wait longer before liveness (give app time to fully start)
           periodSeconds: 15          # Check every 15s
           failureThreshold: 3        # Fail 3 times before restarting pod
 
