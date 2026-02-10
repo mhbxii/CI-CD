@@ -36,4 +36,16 @@ public class TodoService {
     public List<Todo> getAllTodos() {
         return todoRepository.findAll();
     }
+
+    /**
+     * Delete a todo by ID
+     * @param id Todo ID
+     */
+    public void deleteTodo(Long id) {
+        if (!todoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Todo not found");
+        }
+        todoRepository.deleteById(id);
+    }
+
 }

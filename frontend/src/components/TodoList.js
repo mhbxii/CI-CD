@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function TodoList({ todos }) {
+function TodoList({ todos, onTodoDeleted }) {
   if (todos.length === 0) {
     return (
       <div className="todo-list">
@@ -34,6 +34,12 @@ function TodoList({ todos }) {
                 <span className="badge badge-pending">Pending</span>
               )}
             </div>
+            <button
+              className="delete-btn"
+              onClick={() => onTodoDeleted(todo.id)}
+            >
+              🗑 Delete
+            </button>
           </li>
         ))}
       </ul>

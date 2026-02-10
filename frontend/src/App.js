@@ -37,11 +37,22 @@ function App() {
     }
   };
 
+  const handleTodoDeleted = async (id) => {
+    try {
+      await todoAPI.deleteTodo(id);
+      setTodos(todos.filter(todo => todo.id !== id));
+    } catch (err) {
+      setError('Failed to delete todo.');
+      console.error('Error deleting todo:', err);
+    }
+  };
+
+
   return (
     <div className="App">
       <header className="app-header">
-        <h1>📝 Todo App - Release 1.1</h1>
-        <p>Create and Read functionality</p>
+        <h1>📝 Todo App - Release 2.0</h1>
+        <p>Create and Read and Delete functionality</p>
       </header>
 
       <main className="app-main">
@@ -52,12 +63,12 @@ function App() {
         {loading ? (
           <div className="loading" data-testid="loading">Loading todos...</div>
         ) : (
-          <TodoList todos={todos} />
+          <TodoList todos={todos} onTodoDeleted={handleTodoDeleted} />
         )}
       </main>
 
       <footer className="app-footer">
-        <p>Version 1.0.0 - CREATE & READ</p>
+        <p>Version 2.0 - CREATE & READ & DELETE</p>
       </footer>
     </div>
   );

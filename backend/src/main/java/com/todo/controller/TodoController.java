@@ -44,4 +44,19 @@ public class TodoController {
         List<Todo> todos = todoService.getAllTodos();
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }
+
+    /**
+     * DELETE - Delete a todo by ID
+     * DELETE /api/todos/{id}
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+        try {
+            todoService.deleteTodo(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

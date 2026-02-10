@@ -23,7 +23,18 @@ const todoAPI = {
       console.error('Error creating todo:', error);
       throw error;
     }
+  },
+
+  // DELETE a todo by ID
+  deleteTodo: async (id) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/todos/${id}`);
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+      throw error;
+    }
   }
+
 };
 
 export default todoAPI;
