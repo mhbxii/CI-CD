@@ -19,7 +19,16 @@ spec:
       containers:
       - name: backend
         image: mhbx12/todo-backend:latest
-        imagePullPolicy: Always  # Add this line below image
+        imagePullPolicy: Always  # Allow pull from dockerhub
+        
+        resources:          # ← ADD THIS BLOCK
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+            
         ports:
         - containerPort: 8080
         env:
