@@ -262,3 +262,4 @@ Built as a hands-on CI/CD learning project covering:
 - Spring Boot + React development
 - Test-driven development
 - Monitoring with Prometheus & Grafana
+# new Test CI/CD with Kustomize

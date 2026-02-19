@@ -1,4 +1,4 @@
-name: Build and Deploy to Minikube
+name: Build and Deploy to K8S local
 
 on:
   push:
@@ -25,22 +25,19 @@ jobs:
         docker build -t mhbx12/todo-frontend:${{ github.sha }} ./frontend
         docker push mhbx12/todo-frontend:${{ github.sha }}
     
-    - name: Deploy to Minikube
+    - name: Update manifest repo with new image tags
       run: |
-        # Update image tags in YAML
-        sed -i "s|image: mhbx12/todo-backend:.*|image: mhbx12/todo-backend:${{ github.sha }}|" minikube/backend-deployment.yaml
-        sed -i "s|image: mhbx12/todo-frontend:.*|image: mhbx12/todo-frontend:${{ github.sha }}|" minikube/frontend-deployment.yaml
+        git clone https://github.com/mhbxii/todo-app-manifests.git
+        cd todo-app-manifests
         
-        # Apply
-        kubectl apply -f minikube/backend-deployment.yaml
-        kubectl apply -f minikube/frontend-deployment.yaml
+        # Update image tags using kustomize
+        cd base
+        kustomize edit set image mhbx12/todo-backend:${{ github.sha }}
+        kustomize edit set image mhbx12/todo-frontend:${{ github.sha }}
         
-        kubectl rollout status deployment/backend
-        kubectl rollout status deployment/frontend
-    
-    - name: Deploy MySQL StatefulSet
-      run: |
-        kubectl apply -f minikube/mysql-configmap.yaml
-        kubectl apply -f minikube/mysql-headless-service.yaml
-        kubectl apply -f minikube/mysql-statefulset.yaml
-        kubectl apply -f minikube/mysql-service.yaml
+        # Commit and push
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add kustomization.yaml
+        git commit -m "Update images to ${{ github.sha }}"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mhbxii/todo-app-manifests.git main
