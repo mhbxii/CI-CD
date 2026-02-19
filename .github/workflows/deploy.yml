@@ -40,4 +40,4 @@ jobs:
         git config user.email "actions@github.com"
         git add kustomization.yaml
         git commit -m "Update images to ${{ github.sha }}"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mhbxii/todo-app-manifests.git main
+        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/mhbxii/todo-app-manifests.git main
